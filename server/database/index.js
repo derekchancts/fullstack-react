@@ -7,8 +7,8 @@ const SSL = process.env.NODE_ENV === 'production';
 class Database {
   constructor () {
     this._pool = new Pool({
-      // connectionString: CONNECTION_STRING,
-      // ssl: SSL,
+      connectionString: CONNECTION_STRING,
+      ssl: SSL,
       // user: 'postgres',
       // database: 'weather-db',
       // host: 'localhost',
