@@ -1,12 +1,28 @@
 var { Pool } = require('pg');
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/weather-db';
-const SSL = process.env.NODE_ENV === 'production';
 
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
 
+// const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/weather-db';
+// const SSL = process.env.NODE_ENV === 'production';
+
+ 
 class Database {
   constructor () {
     this._pool = new Pool({
+
+    
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
+  }
       // connectionString: CONNECTION_STRING,
       // ssl: SSL,
       // user: 'postgres',
@@ -14,20 +30,20 @@ class Database {
       // host: 'localhost',
       // password: 'Sanman01',
       // port: '5432'
-      user: process.env.POSTGRES_USER,
-      database: process.env.POSTGRES_DATABASE,
-      host: process.env.POSTGRES_HOST,
-      password: process.env.POSTGRES_PASSWORD,
-      port: process.env.POSTGRES_PORT
+      // user: process.env.POSTGRES_USER,
+      // database: process.env.POSTGRES_DATABASE,
+      // host: process.env.POSTGRES_HOST,
+      // password: process.env.POSTGRES_PASSWORD,
+      // port: process.env.POSTGRES_PORT
        
-    });
+  //   });
 
-    this._pool.on('error', (err, client) => {
-      console.error('Unexpected error on idle PostgreSQL client.', err);
-      process.exit(-1);
-    });
+  //   this._pool.on('error', (err, client) => {
+  //     console.error('Unexpected error on idle PostgreSQL client.', err);
+  //     process.exit(-1);
+  //   });
 
-  }
+  // }
 
   query (query, ...args) {
     this._pool.connect((err, client, done) => {
